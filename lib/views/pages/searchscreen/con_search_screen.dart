@@ -43,6 +43,7 @@ class _ConSearchScreenState extends State<ConSearchScreen> {
     body: SafeArea(
       child: Container(
         height: double.infinity,
+        color: AppColors.inputBackgroundColor,
         child: Column(
           children: [
             Container(

@@ -1,4 +1,4 @@
-package com.crowdafrik.app.crowd_afrik
+package com.crowdafrik.app
 
 import io.flutter.embedding.android.FlutterActivity
 

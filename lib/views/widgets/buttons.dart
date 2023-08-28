@@ -24,6 +24,7 @@ class PrimaryButton extends StatelessWidget {
       onTap: onTap,
       activeOpacity: 0.8,
       child: Container(
+        height: 60,
         width: double.maxFinite,
         padding: EdgeInsets.all(18),
         decoration:   BoxDecoration(
@@ -49,6 +50,30 @@ class PrimaryButton extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+
+class PrimaryButtonLoader extends StatelessWidget {
+  const PrimaryButtonLoader({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 60,
+      width: double.maxFinite,
+      padding: const EdgeInsets.all(5),
+      decoration:   BoxDecoration(
+          color: AppColors.primary.withOpacity(0.8),
+          border: Border.all(width: 0, color: AppColors.primary),
+          borderRadius: BorderRadius.circular(25)
+      ),
+      child: const Center(
+          child: CircularProgressIndicator(
+            color: Colors.white,)),
     );
   }
 }

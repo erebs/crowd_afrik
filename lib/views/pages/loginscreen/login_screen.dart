@@ -1,11 +1,12 @@
 import 'package:crowd_afrik/controllers/set_country_controller.dart';
 import 'package:crowd_afrik/views/pages/registrationscreen/registration_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 import 'package:get/get.dart';
 import '../../../contants/app_colors.dart';
 import '../../../contants/app_images.dart';
+import '../../../controllers/login_controller.dart';
+import '../../../utils/snackbar.dart';
 import '../../widgets/buttons.dart';
 import '../../widgets/inputs.dart';
 import '../searchscreen/search_screen.dart';
@@ -18,9 +19,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver{
-  TextEditingController emailController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
    bool isPassword = true;
   final SetCountyController setCountyController = Get.put(SetCountyController());
+  final LoginController loginController = Get.put(LoginController());
+
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -29,17 +33,6 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver{
 
     }
   }
-  //
-  // Future<void> getConCode() async {
-  //
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   final bool refresh = prefs.getBool('refresh')??false;
-  //   if(refresh) {
-  //     code.value = prefs.getString("ccode")??"";
-  //     await prefs.setString("ccode", "");
-  //     await prefs.setBool("refresh", false);
-  //   }
-  // }
 
   @override
   void initState(){
@@ -123,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver{
                         const SizedBox(height: 25),
 
                         Obx(() => EditableBoxMob(
-                                controller: emailController,
+                                controller: mobileController,
                                 hint: "Enter your phone number",
                                 prefix: "+${setCountyController.countryCode.value}",
                                 type: TextInputType.phone,
@@ -135,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver{
                         const SizedBox(height: 20),
 
                         EditableBoxPass(
-                            controller: emailController,
+                            controller: passwordController,
                             isPassword: isPassword,
                             hint: "Enter your password",
                             onPressed: () {
@@ -159,17 +152,28 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver{
 
                         const SizedBox(height: 25),
 
+                        Obx(() => loginController.isLoading.value?const PrimaryButtonLoader():
                         PrimaryButton(
                           buttonText: 'Login',
                           onTap: () {
-                            Get.snackbar(
-                              "Ccode",
-                              setCountyController.countryCode.value,
-                              colorText: AppColors.fontOnSecondary,
-                              backgroundColor: AppColors.secondary,
-                            );
+                            if(mobileController.text.length>5 && passwordController.text.length>2)
+                              {
+                                if(setCountyController.countryCode.value == "00")
+                                  {
+                                    Snack.show("Please choose your country code!");
+                                  }else
+                                    {
+                                      loginController.callApi(
+                                        setCountyController.countryCode.value+mobileController.text,
+                                        passwordController.text,);
+                                    }
+                              }
+                            else
+                              {
+                                Snack.show("Some required fields are empty!");
+                              }
                           },
-
+                        ),
                         ),
 
                         const SizedBox(height: 8),
