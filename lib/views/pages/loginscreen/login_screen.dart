@@ -1,4 +1,5 @@
 import 'package:crowd_afrik/controllers/set_country_controller.dart';
+import 'package:crowd_afrik/views/pages/passwordscreen/password_screen.dart';
 import 'package:crowd_afrik/views/pages/registrationscreen/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
@@ -9,6 +10,7 @@ import '../../../controllers/login_controller.dart';
 import '../../../utils/snackbar.dart';
 import '../../widgets/buttons.dart';
 import '../../widgets/inputs.dart';
+import '../passwordscreen/reset_screen.dart';
 import '../searchscreen/search_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -43,12 +45,16 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver{
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      backgroundColor: AppColors.secondary,
+      appBar: AppBar(
+        backgroundColor: AppColors.secondary,
+        elevation: 0,
+      ),
+      backgroundColor: AppColors.fontOnSecondary,
       body: SafeArea(
           child: Stack(
             children: [
               Container(
-                margin: const EdgeInsets.symmetric(vertical: 80),
+                color: AppColors.secondary,
                 alignment: Alignment.topCenter,
                 child: Column(
                   children: [
@@ -141,6 +147,23 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver{
                         Align(
                           alignment: Alignment.topRight,
                           child: TouchableOpacity(
+                            onTap: (){
+                              if(mobileController.text.isNotEmpty)
+                                {
+                                  if(setCountyController.countryCode.value!="00")
+                                    {
+                                      Get.to(()=> ResetScreen(phone: setCountyController.countryCode.value+mobileController.text,));
+                                    }
+                                  else
+                                  {
+                                    Snack.show("Please choose your country code!");
+                                  }
+
+                                }else
+                                  {
+                                    Snack.show("Please enter your mobile number!");
+                                  }
+                            },
                             child: const Text("Forgot Password?",
                                 style: TextStyle(
                                     color:AppColors.fontOnWhite,
@@ -182,6 +205,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver{
                           child: TouchableOpacity(
                             onTap: () {
                               Get.off(const RegistrationScreen());
+                              // Get.to(const PasswordScreen());
                         },
                             child: const Padding(
                               padding: EdgeInsets.all(10),

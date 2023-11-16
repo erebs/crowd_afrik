@@ -1,3 +1,4 @@
+import 'package:crowd_afrik/controllers/check_controller.dart';
 import 'package:crowd_afrik/views/pages/loginscreen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:crowd_afrik/controllers/set_country_controller.dart';
@@ -8,6 +9,7 @@ import 'package:get/get.dart';
 import '../../../contants/app_colors.dart';
 import '../../../contants/app_images.dart';
 import '../../../controllers/set_set_controller.dart';
+import '../../../utils/snackbar.dart';
 import '../../widgets/buttons.dart';
 import '../../widgets/inputs.dart';
 import '../searchscreen/con_search_screen.dart';
@@ -22,6 +24,8 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
 
+  CheckController checkController = CheckController();
+  TextEditingController refController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -33,12 +37,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.secondary,
+        elevation: 0,
+      ),
       backgroundColor: AppColors.secondary,
       body: SafeArea(
+        bottom: false,
           child: Stack(
             children: [
               Container(
-                  margin: const EdgeInsets.symmetric(vertical: 80),
                   alignment: Alignment.topCenter,
                   child: Column(
                     children: [
@@ -76,11 +84,30 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                             const SizedBox(height: 25),
 
+
+                            EditableBoxRef(
+                              onChanged: (value) {
+                                if(value.length==8)
+                                  {
+
+                                  }
+                              },
+                              controller: refController,
+                              hint: "Enter Referral Code (Optional)",
+                              type: TextInputType.name,
+                            ),
+
+
+
+                            const SizedBox(height: 20),
+
                             EditableBox(
                                 controller: nameController,
                                 hint: "Enter your full name",
                                 type: TextInputType.name,
                             ),
+
+
 
                             const SizedBox(height: 20),
 
@@ -97,9 +124,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             const SizedBox(height: 20),
 
                             EditableBox(
-                              controller: nameController,
+                              controller: emailController,
                               hint: "Enter your email id",
-                              type: TextInputType.name,
+                              type: TextInputType.emailAddress,
                             ),
 
                             const SizedBox(height: 20),
@@ -144,12 +171,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               buttonText: 'Continue',
                                 isContinue:true,
                               onTap: () {
-                                Get.snackbar(
-                                  "Ccode",
-                                  setCountyController.countryCode.value,
-                                  colorText: AppColors.fontOnSecondary,
-                                  backgroundColor: AppColors.secondary,
-                                );
+
+                                if(setCountyController.countryCode.value!="00" && setCountyController.countryId.isNotEmpty && setStateController.stateId.isNotEmpty
+                                && phoneController.text.length>2 && emailController.text.length>3 && nameController.text.length>2)
+                                  {
+                                    checkController.callApi(
+                                        phoneController.text,
+                                        nameController.text,
+                                        emailController.text,
+                                        setCountyController.countryId.value,
+                                        setCountyController.countryCode.value,
+                                        setStateController.stateId.value);
+                                  }else
+                                    {
+                                      Snack.show("Some required fields are empty!");
+                                    }
+
                               },
 
                             ),

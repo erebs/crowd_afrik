@@ -77,3 +77,81 @@ class PrimaryButtonLoader extends StatelessWidget {
     );
   }
 }
+
+class TabButton extends StatelessWidget {
+  TabButton({
+    Key? key,
+    required this.onTap,
+    required this.text,
+    this.isSelected = false,
+  }) : super(key: key);
+
+  final String text;
+  bool isSelected;
+  VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return TouchableOpacity(
+      onTap: onTap,
+      child: Container(
+          height: 36,
+          width: 110,
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          decoration:   BoxDecoration(
+              color: isSelected?AppColors.primary:Colors.white,
+              border: Border.all(width: 1, color: AppColors.primary),
+              borderRadius: BorderRadius.circular(10)
+          ),
+          child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                  text,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  color: isSelected?Colors.white:AppColors.primary,)
+              )
+          )
+
+      ),
+    );
+  }
+}
+
+
+class TabButtonDelete extends StatelessWidget {
+  TabButtonDelete({
+    Key? key,
+    required this.onTap,
+    this.isSelected = false,
+  }) : super(key: key);
+
+  bool isSelected;
+  VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return TouchableOpacity(
+      onTap: onTap,
+      child: Container(
+          height: 36,
+          width: 110,
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          decoration:   BoxDecoration(
+              color: isSelected?AppColors.primary:Colors.white,
+              border: Border.all(width: 1, color: AppColors.primary),
+              borderRadius: BorderRadius.circular(10)
+          ),
+          child: SizedBox(
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator(color: AppColors.primary, strokeWidth: 3,)
+          )
+
+      ),
+    );
+  }
+}

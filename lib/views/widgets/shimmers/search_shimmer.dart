@@ -67,9 +67,10 @@ class SingleListShimmer extends StatelessWidget {
   SingleListShimmer({
     super.key,
     this.shimWidth = 40,
+    this.height = 10,
   });
 
-  double shimWidth;
+  double shimWidth, height;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +85,7 @@ class SingleListShimmer extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 18, horizontal: 0),
       child: Container(
         color: Colors.grey,
-        height:10,
+        height:height,
         width: shimWidth,
       ),
     );

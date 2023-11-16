@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:html/parser.dart';
 
 class Helpers
 {
@@ -24,6 +25,12 @@ class Helpers
     } else {
       return "${text.substring(0, maxLength)} ...";
     }
+  }
+
+  static String parseHtmlString(String htmlString) {
+    final document = parse(htmlString);
+    final String? parsedString = parse(document.body?.text).documentElement?.text;
+    return parsedString!;
   }
 
 

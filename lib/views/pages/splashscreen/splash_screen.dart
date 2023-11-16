@@ -1,6 +1,5 @@
 import 'package:crowd_afrik/views/pages/homescreen/home_screen.dart';
 import 'package:crowd_afrik/views/pages/loginscreen/login_screen.dart';
-import 'package:crowd_afrik/views/pages/mainscreen/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -47,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
   screenNavigation () async {
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isLoggedIn = (prefs.getBool('is_logged_in') == null) ? false : true;
+    bool isLoggedIn = (prefs.getBool('is_logged_in') == null || prefs.getBool('is_logged_in') == false ? false : true);
 
     String?   userName    = prefs.getString("user_name");
     int?      userId      = prefs.getInt("user_id");
@@ -56,7 +55,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Future.delayed(const Duration (seconds: 3),(){
       Get.off(()=>isLoggedIn ? HomeScreen(
-        userId: userId!,
         userName: userName!,
         userMobile: userMobile!,
         userEmail: userEmail!,

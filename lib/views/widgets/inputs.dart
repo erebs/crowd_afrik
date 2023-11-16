@@ -73,6 +73,75 @@ class EditableBox extends StatelessWidget {
   }
 }
 
+
+class EditableBoxRef extends StatelessWidget {
+  EditableBoxRef({
+    Key? key,
+    required this.controller,
+    required this.hint,
+    required this.type,
+    this.prefix="",
+    this.isPassword = false,
+    this.maxLength = 100,
+    this.icon,
+    this.onPressed,
+    this.onChanged,
+  }) : super(key: key);
+
+  final TextEditingController controller;
+  final String hint;
+  final TextInputType type;
+  final GestureTapCallback? onPressed;
+  Icon? icon;
+  bool isPassword;
+  int maxLength;
+  String prefix;
+  Function(String value) ? onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(4),
+      decoration:   BoxDecoration(
+          color: AppColors.inputBackgroundColor,
+          border: Border.all(width: 1, color: Colors.deepOrange),
+          borderRadius: BorderRadius.circular(10)
+      ),
+      child: TextField(
+        obscureText: isPassword,
+        keyboardType: type,
+        maxLength: maxLength,
+        onChanged: onChanged,
+        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold,),
+        // onChanged: onChanged!,
+        decoration: InputDecoration(
+            counterText: "",
+            border: InputBorder.none,
+            prefix: Text(prefix, style: TextStyle(color: Colors.black),),
+            suffixIcon: icon!=null?IconButton(
+              icon: icon!,
+              onPressed: () => { onPressed!() },
+            ):null,
+            alignLabelWithHint: true,
+            enabledBorder:new OutlineInputBorder(
+              borderSide: new BorderSide(color:Colors.transparent),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            hintText: hint,
+            contentPadding: EdgeInsets.only(left: 15,right: 15),
+            hintStyle: TextStyle(
+              fontSize: 13,
+              color:Colors.grey,
+              fontWeight: FontWeight.normal,
+            )
+        ),
+        controller:controller,
+      ),
+
+    );
+  }
+}
+
 class EditableBoxMob extends StatelessWidget {
   EditableBoxMob({
     Key? key,
@@ -359,6 +428,38 @@ class DropBox extends StatelessWidget {
         )
 
       ),
+    );
+  }
+}
+
+
+class TextBox extends StatelessWidget {
+  const TextBox({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: 52,
+        alignment: Alignment.centerLeft,
+        padding: EdgeInsets.only(left: 20, right: 10),
+        decoration:   BoxDecoration(
+            color: AppColors.inputBackgroundColor.withOpacity(0.5),
+            border: Border.all(width: 1, color: AppColors.primary),
+            borderRadius: BorderRadius.circular(10)
+        ),
+        child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+                text,
+                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold,)
+            )
+        )
+
     );
   }
 }

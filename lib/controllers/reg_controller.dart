@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'package:crowd_afrik/models/check_model.dart';
 import 'package:crowd_afrik/models/login_model.dart';
+import 'package:crowd_afrik/models/reg_model.dart';
 import 'package:crowd_afrik/views/pages/homescreen/home_screen.dart';
+import 'package:crowd_afrik/views/pages/loginscreen/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -10,37 +13,45 @@ import '../contants/app_variables.dart';
 import '../utils/snackbar.dart';
 import 'dart:io';
 
-class LoginController extends GetxController {
+import '../views/pages/passwordscreen/password_screen.dart';
+
+class RegController extends GetxController {
   var isLoading = false.obs;
-  LoginModel loginModel = LoginModel();
+  RegModel regModel = RegModel();
 
   @override
   Future<void> onInit() async {
     super.onInit();
   }
 
-  callApi(String userMobileNumber,String password) async {
+  callApi(String password) async {
     try {
       isLoading(true);
-      FocusManager.instance.primaryFocus?.unfocus();
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
       http.Response response = await http.post(Uri.tryParse(
-          '${AppVariables.apiUrl}login')!, body:
+          '${AppVariables.apiUrl}register')!, body:
       {
-        'phone_number': userMobileNumber,
-        'password': password,
-        'device_type': "Android",
+        'full_name':prefs.getString("reg_user_name"),
+        'phone_number':prefs.getString("reg_user_mobile"),
+        'email_id':prefs.getString("reg_user_email"),
+        'password':password,
+        'device_type':getPlatform(),
+        'country':prefs.getString("reg_country_id"),
+        'state':prefs.getString("reg_state_id"),
       });
       if (kDebugMode) {
-        print(response.body+"-"+getPlatform()+"--"+userMobileNumber+"P-"+password);
+        print(response.body+getPlatform());
       }if (response.statusCode == 200 || response.statusCode == 400) {
-        loginModel = LoginModel.fromJson(jsonDecode(response.body));
-        if(loginModel.statusCode=="01")
+        regModel = RegModel.fromJson(jsonDecode(response.body));
+        if(regModel.statusCode=="01")
         {
-         setUserData(userMobileNumber);
+
+          Get.offAll(() => const LoginScreen());
+
         }
         else
         {
-          Snack.show(loginModel.message!);
+          Snack.show(regModel.message!);
         }
 
       } else {
@@ -52,23 +63,6 @@ class LoginController extends GetxController {
     } finally {
       isLoading(false);
     }
-  }
-
-  Future<void> setUserData(String userMobileNumber) async {
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setInt("user_id", loginModel.userId!);
-    await prefs.setString("user_name", loginModel.fullName!);
-    await prefs.setString("user_mobile", userMobileNumber);
-    await prefs.setString("user_email", loginModel.emailId!);
-    await prefs.setString("user_token", loginModel.token!);
-    await prefs.setBool("is_logged_in", true);
-
-    Get.off(
-        HomeScreen(
-        userName: loginModel.fullName!,
-        userMobile: userMobileNumber,
-        userEmail: loginModel.emailId!));
   }
 
   String getPlatform() {

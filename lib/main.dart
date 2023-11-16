@@ -8,12 +8,8 @@ import 'package:get/get.dart';
 
 void main() {
 
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: AppColors.secondary, // status bar color
-    statusBarBrightness: Brightness.dark, //status bar brigtness
-    statusBarIconBrightness: Brightness.light,
-  ));
-
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
   runApp(const MyApp());
 }
 
