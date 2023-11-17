@@ -1,7 +1,9 @@
 import 'package:crowd_afrik/contants/app_colors.dart';
+import 'package:crowd_afrik/contants/app_images.dart';
 import 'package:crowd_afrik/views/pages/homescreen/homefragments/profilefragments/account_fragment.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:remixicon/remixicon.dart';
 
 import '../../../../contants/app_variables.dart';
 import '../../../widgets/buttons.dart';
@@ -26,63 +28,99 @@ class ProfileFragment extends StatefulWidget {
 }
 
 class _ProfileFragmentState extends State<ProfileFragment> {
-
   RxInt index = RxInt(0);
   int selectedIndex = 0;
   PageController pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
+        leading: const SizedBox(),
         backgroundColor: AppColors.primary,
         elevation: 0,
-        title:  Text("Profile", style: TextStyle(fontSize: 14),),
+        leadingWidth: 14,
+        title: Row(children: [
+          CircleAvatar(
+            radius: 17,
+            backgroundColor: AppColors.fontOnSecondary,
+            child: Image.asset(
+              AppImages.profile,
+            ),
+          ),
+          SizedBox(width: 15),
+          const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Nithin t v",
+                style: TextStyle(
+                    color: AppColors.fontOnSecondary,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500),
+              ),
+              SizedBox(
+                height: 3,
+              ),
+              Text(
+                "8606936845",
+                style: TextStyle(
+                    color: AppColors.fontOnSecondary,
+                    fontSize: 9,
+                    fontWeight: FontWeight.w500),
+              )
+            ],
+          )
+        ]) /*  Text(
+          "Profile",
+          style: TextStyle(fontSize: 14),
+        ) */
+        ,
       ),
       backgroundColor: AppColors.secondary,
       body: SafeArea(
         bottom: false,
         child: Container(
-          decoration:   BoxDecoration(
-              border: Border.all(width: 0, color: Colors.white),
-              color: Colors.white,
+          decoration: BoxDecoration(
+            border: Border.all(width: 0, color: Colors.white),
+            color: Colors.white,
           ),
           height: double.infinity,
           width: double.infinity,
           child: Column(
             children: [
-
               Obx(() => Padding(
-                padding: const EdgeInsets.all(20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-
-                    TabButton(
-                      isSelected: index.value==0?true:false, text: 'Account',
-                      onTap: () {
-                        index.value = 0;
-                        onItemTapped(0);
-                      },),
-                    TabButton(
-                      isSelected: index.value==1?true:false, text: 'Funding',
-                      onTap: () {
-                        index.value = 1;
-                        onItemTapped(1);
-                      },),
-                    TabButton(
-                      isSelected: index.value==2?true:false, text: 'Repayment',
-                      onTap: () {
-                        index.value = 2;
-                        onItemTapped(2);
-                      },),
-
-                  ],
-                ),
-              )),
-
-
+                    padding: const EdgeInsets.all(20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TabButton(
+                          isSelected: index.value == 0 ? true : false,
+                          text: 'Account',
+                          onTap: () {
+                            index.value = 0;
+                            onItemTapped(0);
+                          },
+                        ),
+                        TabButton(
+                          isSelected: index.value == 1 ? true : false,
+                          text: 'Funding',
+                          onTap: () {
+                            index.value = 1;
+                            onItemTapped(1);
+                          },
+                        ),
+                        TabButton(
+                          isSelected: index.value == 2 ? true : false,
+                          text: 'Repayment',
+                          onTap: () {
+                            index.value = 2;
+                            onItemTapped(2);
+                          },
+                        ),
+                      ],
+                    ),
+                  )),
               Expanded(
                 child: PageView(
                   physics: NeverScrollableScrollPhysics(),
@@ -92,14 +130,21 @@ class _ProfileFragmentState extends State<ProfileFragment> {
                     index.value = indexVal;
                   },
                   children: <Widget>[
-
-                    AccountFragment(userName:widget.userName, userMobile: widget.userMobile, userEmail: widget.userEmail, userId: widget.userId,),
-                    SecScreen(url: "${AppVariables.memberUrl}funding-campaigns/${widget.userId}"),
-                    SecScreen(url: "${AppVariables.memberUrl}repayment-campaigns/${widget.userId}"),
+                    AccountFragment(
+                      userName: widget.userName,
+                      userMobile: widget.userMobile,
+                      userEmail: widget.userEmail,
+                      userId: widget.userId,
+                    ),
+                    SecScreen(
+                        url:
+                            "${AppVariables.memberUrl}funding-campaigns/${widget.userId}"),
+                    SecScreen(
+                        url:
+                            "${AppVariables.memberUrl}repayment-campaigns/${widget.userId}"),
                   ],
                 ),
               ),
-
             ],
           ),
         ),
@@ -114,6 +159,4 @@ class _ProfileFragmentState extends State<ProfileFragment> {
           duration: Duration(milliseconds: 500), curve: Curves.easeOutCubic);
     });
   }
-
 }
-

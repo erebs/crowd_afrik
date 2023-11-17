@@ -12,7 +12,7 @@ class EditableBox extends StatelessWidget {
     required this.controller,
     required this.hint,
     required this.type,
-    this.prefix="",
+    this.prefix = "",
     this.isPassword = false,
     this.maxLength = 100,
     this.icon,
@@ -28,51 +28,55 @@ class EditableBox extends StatelessWidget {
   bool isPassword;
   int maxLength;
   String prefix;
-  Function(String value) ? onChanged;
+  Function(String value)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(4),
-      decoration:   BoxDecoration(
+      decoration: BoxDecoration(
           color: AppColors.inputBackgroundColor,
           border: Border.all(width: 0, color: AppColors.inputBackgroundColor),
-          borderRadius: BorderRadius.circular(10)
-      ),
+          borderRadius: BorderRadius.circular(10)),
       child: TextField(
         obscureText: isPassword,
         keyboardType: type,
         maxLength: maxLength,
-        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold,),
+        style: const TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+        ),
         // onChanged: onChanged!,
         decoration: InputDecoration(
             counterText: "",
             border: InputBorder.none,
-            prefix: Text(prefix, style: TextStyle(color: Colors.black),),
-            suffixIcon: icon!=null?IconButton(
-              icon: icon!,
-              onPressed: () => { onPressed!() },
-            ):null,
+            prefix: Text(
+              prefix,
+              style: TextStyle(color: Colors.black),
+            ),
+            suffixIcon: icon != null
+                ? IconButton(
+                    icon: icon!,
+                    onPressed: () => {onPressed!()},
+                  )
+                : null,
             alignLabelWithHint: true,
-            enabledBorder:new OutlineInputBorder(
-              borderSide: new BorderSide(color:Colors.transparent),
+            enabledBorder: new OutlineInputBorder(
+              borderSide: new BorderSide(color: Colors.transparent),
               borderRadius: BorderRadius.circular(10.0),
             ),
             hintText: hint,
-            contentPadding: EdgeInsets.only(left: 15,right: 15),
+            contentPadding: EdgeInsets.only(left: 15, right: 15),
             hintStyle: TextStyle(
-                fontSize: 13,
-                color:Colors.grey,
+              fontSize: 13,
+              color: Colors.grey,
               fontWeight: FontWeight.normal,
-            )
-        ),
-        controller:controller,
+            )),
+        controller: controller,
       ),
-
     );
   }
 }
-
 
 class EditableBoxRef extends StatelessWidget {
   EditableBoxRef({
@@ -80,7 +84,7 @@ class EditableBoxRef extends StatelessWidget {
     required this.controller,
     required this.hint,
     required this.type,
-    this.prefix="",
+    this.prefix = "",
     this.isPassword = false,
     this.maxLength = 100,
     this.icon,
@@ -96,48 +100,53 @@ class EditableBoxRef extends StatelessWidget {
   bool isPassword;
   int maxLength;
   String prefix;
-  Function(String value) ? onChanged;
+  Function(String value)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(4),
-      decoration:   BoxDecoration(
+      decoration: BoxDecoration(
           color: AppColors.inputBackgroundColor,
           border: Border.all(width: 1, color: Colors.deepOrange),
-          borderRadius: BorderRadius.circular(10)
-      ),
+          borderRadius: BorderRadius.circular(10)),
       child: TextField(
         obscureText: isPassword,
         keyboardType: type,
         maxLength: maxLength,
         onChanged: onChanged,
-        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold,),
+        style: const TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+        ),
         // onChanged: onChanged!,
         decoration: InputDecoration(
             counterText: "",
             border: InputBorder.none,
-            prefix: Text(prefix, style: TextStyle(color: Colors.black),),
-            suffixIcon: icon!=null?IconButton(
-              icon: icon!,
-              onPressed: () => { onPressed!() },
-            ):null,
+            prefix: Text(
+              prefix,
+              style: TextStyle(color: Colors.black),
+            ),
+            suffixIcon: icon != null
+                ? IconButton(
+                    icon: icon!,
+                    onPressed: () => {onPressed!()},
+                  )
+                : null,
             alignLabelWithHint: true,
-            enabledBorder:new OutlineInputBorder(
-              borderSide: new BorderSide(color:Colors.transparent),
+            enabledBorder: new OutlineInputBorder(
+              borderSide: new BorderSide(color: Colors.transparent),
               borderRadius: BorderRadius.circular(10.0),
             ),
             hintText: hint,
-            contentPadding: EdgeInsets.only(left: 15,right: 15),
+            contentPadding: EdgeInsets.only(left: 15, right: 15),
             hintStyle: TextStyle(
               fontSize: 13,
-              color:Colors.grey,
+              color: Colors.grey,
               fontWeight: FontWeight.normal,
-            )
-        ),
-        controller:controller,
+            )),
+        controller: controller,
       ),
-
     );
   }
 }
@@ -164,69 +173,64 @@ class EditableBoxMob extends StatelessWidget {
   bool isPassword;
   int maxLength;
   String prefix;
-  Function(String value) ? onChanged;
+  Function(String value)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(5),
-      decoration:   BoxDecoration(
+      decoration: BoxDecoration(
           color: AppColors.inputBackgroundColor,
           border: Border.all(width: 0, color: AppColors.inputBackgroundColor),
-          borderRadius: BorderRadius.circular(10)
-      ),
+          borderRadius: BorderRadius.circular(10)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-
-           Container(
-             margin: const EdgeInsets.only(left: 15),
-             child: TouchableOpacity(
+          Container(
+            margin: const EdgeInsets.only(left: 15),
+            child: TouchableOpacity(
               child: Row(
                 children: [
                   Text(prefix, style: TextStyle(fontWeight: FontWeight.bold)),
-                  Icon(Remix.arrow_drop_down_fill, size: 30, color: Colors.black),
+                  Icon(Remix.arrow_drop_down_fill,
+                      size: 30, color: Colors.black),
                 ],
               ),
-               onTap: () => { onPressed!() },
+              onTap: () => {onPressed!()},
+            ),
           ),
-           ),
-
           Expanded(
             flex: 1,
             child: TextField(
               obscureText: isPassword,
               keyboardType: type,
               maxLength: maxLength,
-              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold,),
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
               // onChanged: onChanged!,
               decoration: InputDecoration(
                   counterText: "",
                   border: InputBorder.none,
                   floatingLabelBehavior: FloatingLabelBehavior.never,
-
                   alignLabelWithHint: true,
-                  enabledBorder:new OutlineInputBorder(
-                    borderSide: new BorderSide(color:Colors.transparent),
+                  enabledBorder: new OutlineInputBorder(
+                    borderSide: new BorderSide(color: Colors.transparent),
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   hintText: hint,
-                  contentPadding: EdgeInsets.only(left: 15,right: 15),
+                  contentPadding: EdgeInsets.only(left: 15, right: 15),
                   hintStyle: TextStyle(
                     fontSize: 13,
-                    color:Colors.grey,
+                    color: Colors.grey,
                     fontWeight: FontWeight.normal,
-                  )
-              ),
-              controller:controller,
+                  )),
+              controller: controller,
             ),
           ),
-
-
         ],
       ),
-
-
     );
   }
 }
@@ -237,7 +241,7 @@ class EditableBoxPass extends StatelessWidget {
     required this.controller,
     required this.hint,
     required this.type,
-    this.prefix="",
+    this.prefix = "",
     this.isPassword = false,
     this.maxLength = 100,
     this.icon,
@@ -253,17 +257,16 @@ class EditableBoxPass extends StatelessWidget {
   bool isPassword;
   int maxLength;
   String prefix;
-  Function(String value) ? onChanged;
+  Function(String value)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(5),
-      decoration:   BoxDecoration(
+      decoration: BoxDecoration(
           color: AppColors.inputBackgroundColor,
           border: Border.all(width: 0, color: AppColors.inputBackgroundColor),
-          borderRadius: BorderRadius.circular(10)
-      ),
+          borderRadius: BorderRadius.circular(10)),
       child: Row(
         children: [
           Expanded(
@@ -271,42 +274,49 @@ class EditableBoxPass extends StatelessWidget {
               obscureText: isPassword,
               keyboardType: type,
               maxLength: maxLength,
-              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold,),
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
               // onChanged: onChanged!,
               decoration: InputDecoration(
                   counterText: "",
                   border: InputBorder.none,
                   floatingLabelBehavior: FloatingLabelBehavior.never,
-
                   alignLabelWithHint: true,
-                  enabledBorder:new OutlineInputBorder(
-                    borderSide: new BorderSide(color:Colors.transparent),
+                  enabledBorder: new OutlineInputBorder(
+                    borderSide: new BorderSide(color: Colors.transparent),
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   hintText: hint,
-                  contentPadding: EdgeInsets.only(left: 15,right: 15),
+                  contentPadding: EdgeInsets.only(left: 15, right: 15),
                   hintStyle: TextStyle(
-                      fontSize: 13,
-                      color:Colors.grey,
+                    fontSize: 13,
+                    color: Colors.grey,
                     fontWeight: FontWeight.normal,
-                  )
-              ),
-              controller:controller,
+                  )),
+              controller: controller,
             ),
           ),
-
           IconButton(
-            icon: ((isPassword?const Icon(Remix.eye_close_line, size: 20, color: Colors.grey,):const Icon(Remix.eye_line, size: 20, color: Colors.grey,))),
-            onPressed: () => { onPressed!() },
+            icon: ((isPassword
+                ? const Icon(
+                    Remix.eye_close_line,
+                    size: 20,
+                    color: Colors.grey,
+                  )
+                : const Icon(
+                    Remix.eye_line,
+                    size: 20,
+                    color: Colors.grey,
+                  ))),
+            onPressed: () => {onPressed!()},
           ),
         ],
       ),
-
-
     );
   }
 }
-
 
 class SearchBox extends StatelessWidget {
   SearchBox({
@@ -314,7 +324,7 @@ class SearchBox extends StatelessWidget {
     required this.controller,
     required this.hint,
     required this.type,
-    this.prefix="",
+    this.prefix = "",
     this.isPassword = false,
     this.maxLength = 100,
     this.icon,
@@ -330,52 +340,57 @@ class SearchBox extends StatelessWidget {
   bool isPassword;
   int maxLength;
   String prefix;
-  Function(String value) ? onChanged;
+  Function(String value)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 50,
       padding: EdgeInsets.all(0),
-      decoration:   BoxDecoration(
+      decoration: BoxDecoration(
           color: AppColors.inputBackgroundColor,
           border: Border.all(width: 1, color: AppColors.primary),
-          borderRadius: BorderRadius.circular(30)
-      ),
+          borderRadius: BorderRadius.circular(30)),
       child: TextField(
         obscureText: isPassword,
         keyboardType: type,
         maxLength: maxLength,
         onChanged: onChanged,
         textAlign: TextAlign.left,
-        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold,),
+        style: const TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+        ),
         // onChanged: onChanged!,
         decoration: InputDecoration(
             counterText: "",
             border: InputBorder.none,
             floatingLabelBehavior: FloatingLabelBehavior.never,
-            prefix: Text(prefix, style: TextStyle(color: Colors.black),),
-            suffixIcon: icon!=null?IconButton(
-              icon: icon!,
-              onPressed: () => { onPressed!() },
-            ):null,
+            prefix: Text(
+              prefix,
+              style: TextStyle(color: Colors.black),
+            ),
+            suffixIcon: icon != null
+                ? IconButton(
+                    icon: icon!,
+                    onPressed: () => {onPressed!()},
+                  )
+                : null,
             alignLabelWithHint: true,
-            enabledBorder:new OutlineInputBorder(
-              borderSide: new BorderSide(color:Colors.transparent),
+            enabledBorder: new OutlineInputBorder(
+              borderSide: new BorderSide(color: Colors.transparent),
               borderRadius: BorderRadius.circular(10.0),
             ),
             hintText: hint,
-            contentPadding: EdgeInsets.only(left: 25,right: 25),
+            contentPadding: EdgeInsets.only(left: 25, right: 25),
             hintStyle: const TextStyle(
               fontSize: 15,
-              color:Colors.grey,
+              color: Colors.grey,
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.normal,
-            )
-        ),
-        controller:controller,
+            )),
+        controller: controller,
       ),
-
     );
   }
 }
@@ -384,7 +399,7 @@ class DropBox extends StatelessWidget {
   DropBox({
     Key? key,
     required this.hint,
-    this.prefix="",
+    this.prefix = "",
     this.onPressed,
   }) : super(key: key);
 
@@ -395,43 +410,51 @@ class DropBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TouchableOpacity(
-      onTap: () => { onPressed!() },
+      onTap: () => {onPressed!()},
       child: Container(
-        height: 55,
-        alignment: Alignment.centerLeft,
-        padding: EdgeInsets.only(left: 20, right: 10),
-        decoration:   BoxDecoration(
-            color: AppColors.inputBackgroundColor,
-            border: Border.all(width: 0, color: AppColors.inputBackgroundColor),
-            borderRadius: BorderRadius.circular(10)
-        ),
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: prefix.length>0?
-              Text(
-                  prefix.length>10?prefix.substring(0,10)+"...":prefix,
-                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold,)):
-              Text(
-                hint,
-                style: const TextStyle(
-                  fontSize: 13,
-                  color:Colors.grey,
-                  fontWeight: FontWeight.normal,),),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Icon(Remix.arrow_drop_down_fill, color: Colors.black, size: 30,),
-            )
-          ],
-        )
-
-      ),
+          height: 55,
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.only(left: 20, right: 10),
+          decoration: BoxDecoration(
+              color: AppColors.inputBackgroundColor,
+              border:
+                  Border.all(width: 0, color: AppColors.inputBackgroundColor),
+              borderRadius: BorderRadius.circular(10)),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: prefix.length > 0
+                    ? Text(
+                        prefix.length > 10
+                            ? prefix.substring(0, 10) + "..."
+                            : prefix,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ))
+                    : Text(
+                        hint,
+                        style: const TextStyle(
+                          fontSize: 13,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Icon(
+                  Remix.arrow_drop_down_fill,
+                  color: Colors.black,
+                  size: 30,
+                ),
+              )
+            ],
+          )),
     );
   }
 }
-
 
 class TextBox extends StatelessWidget {
   const TextBox({
@@ -447,19 +470,152 @@ class TextBox extends StatelessWidget {
         height: 52,
         alignment: Alignment.centerLeft,
         padding: EdgeInsets.only(left: 20, right: 10),
-        decoration:   BoxDecoration(
+        decoration: BoxDecoration(
             color: AppColors.inputBackgroundColor.withOpacity(0.5),
             border: Border.all(width: 1, color: AppColors.primary),
-            borderRadius: BorderRadius.circular(10)
-        ),
+            borderRadius: BorderRadius.circular(10)),
         child: Align(
             alignment: Alignment.centerLeft,
-            child: Text(
-                text,
-                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold,)
-            )
-        )
+            child: Text(text,
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ))));
+  }
+}
 
+class EditableCIBox extends StatelessWidget {
+  EditableCIBox({
+    Key? key,
+    required this.controller,
+    required this.hint,
+    required this.type,
+    this.icon,
+    this.onPressed,
+    this.onChanged,
+  }) : super(key: key);
+
+  final TextEditingController controller;
+  final String hint;
+  final TextInputType type;
+  final GestureTapCallback? onPressed;
+  Icon? icon;
+  Function(String value)? onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 1,
+          child: TextField(
+            keyboardType: type,
+            style: const TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
+            // onChanged: onChanged!,
+            decoration: InputDecoration(
+                counterText: "",
+                fillColor: Colors.white,
+                filled: true,
+                disabledBorder: OutlineInputBorder(
+                  borderSide: new BorderSide(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: new BorderSide(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                border: OutlineInputBorder(
+                  borderSide: new BorderSide(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                alignLabelWithHint: true,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: new BorderSide(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                hintText: hint,
+                contentPadding: EdgeInsets.only(left: 15, right: 15),
+                hintStyle: TextStyle(
+                  fontSize: 13,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.normal,
+                )),
+            controller: controller,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class FundingFormBox extends StatelessWidget {
+  FundingFormBox({
+    Key? key,
+    required this.controller,
+    required this.hint,
+    required this.type,
+    this.onPressed,
+    this.onChanged,
+  }) : super(key: key);
+
+  final TextEditingController controller;
+  final String hint;
+  final TextInputType type;
+  final GestureTapCallback? onPressed;
+  Function(String value)? onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 1,
+          child: TextField(
+            keyboardType: type,
+            style: const TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
+            // onChanged: onChanged!,
+            decoration: InputDecoration(
+                counterText: "",
+                fillColor: Colors.white,
+                filled: true,
+                disabledBorder: OutlineInputBorder(
+                  borderSide: new BorderSide(color: Colors.transparent),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: new BorderSide(color: Colors.transparent),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                border: OutlineInputBorder(
+                  borderSide: new BorderSide(color: Colors.transparent),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                alignLabelWithHint: true,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: new BorderSide(color: Colors.transparent),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                hintText: hint,
+                contentPadding: EdgeInsets.only(left: 15, right: 15),
+                hintStyle: TextStyle(
+                  fontSize: 13,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.normal,
+                )),
+            controller: controller,
+          ),
+        ),
+      ],
     );
   }
 }
